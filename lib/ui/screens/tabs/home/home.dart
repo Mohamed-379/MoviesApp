@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/data/model/popular_movies_responses.dart';
-import 'package:movieapp/ui/screens/tabs/home/details_screen_pop.dart';
 import 'package:movieapp/ui/screens/tabs/home/pop_movie_model_view.dart';
 import 'package:movieapp/ui/screens/tabs/home/rec_movies/re_movie_list.dart';
 import 'package:movieapp/ui/screens/tabs/home/up_movies/up_movie_list.dart';
@@ -31,8 +30,6 @@ class _HomeState extends State<Home> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       modelView.getPop();
-      //modelView.getUp();
-      //modelView.getRec();
     });
   }
 
