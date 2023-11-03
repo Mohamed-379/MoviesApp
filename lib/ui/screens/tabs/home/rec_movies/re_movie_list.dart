@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/data/model/recommended_movies_responses.dart';
 import 'package:movieapp/data/repos/movies_repo/data_sources/online_data_sources.dart';
-import 'package:movieapp/ui/widgets/error_widget.dart';
-import 'package:movieapp/ui/widgets/loadeing_widget.dart';
-
+import '../../../../../widgets/error_widget.dart';
+import '../../../../../widgets/loadeing_widget.dart';
 import 'build_re_movie.dart';
 
 class ReMovieList extends StatelessWidget {

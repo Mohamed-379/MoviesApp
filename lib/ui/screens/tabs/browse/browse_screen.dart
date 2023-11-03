@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class BrowserScreen extends StatelessWidget {
+class BrowseScreen extends StatelessWidget {
   static const routeName = "Browser Screen";
-  const BrowserScreen({super.key});
+  const BrowseScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

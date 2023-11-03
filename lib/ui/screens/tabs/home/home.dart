@@ -3,13 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/data/model/popular_movies_responses.dart';
-import 'package:movieapp/ui/screens/tabs/home/details_screen_pop.dart';
 import 'package:movieapp/ui/screens/tabs/home/pop_movie_model_view.dart';
 import 'package:movieapp/ui/screens/tabs/home/rec_movies/re_movie_list.dart';
 import 'package:movieapp/ui/screens/tabs/home/up_movies/up_movie_list.dart';
-import 'package:movieapp/ui/widgets/error_widget.dart';
-import 'package:movieapp/ui/widgets/loadeing_widget.dart';
-
+import '../../../../widgets/error_widget.dart';
+import '../../../../widgets/loadeing_widget.dart';
 import '../../details_screen/datails_screen.dart';
 
 class Home extends StatefulWidget {
@@ -31,8 +29,6 @@ class _HomeState extends State<Home> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       modelView.getPop();
-      //modelView.getUp();
-      //modelView.getRec();
     });
   }
 
@@ -61,7 +57,7 @@ class _HomeState extends State<Home> {
             flex: 4,
             child: CarouselSlider(
                 items: results.map((movie) => buildPopMovie(movie)).toList(),
-                options: CarouselOptions(autoPlay: true, viewportFraction: 1))),
+                options: CarouselOptions(autoPlay: true, viewportFraction: 1,height: double.infinity))),
         const SizedBox(
           height: 10,
         ),
@@ -116,6 +112,7 @@ class _HomeState extends State<Home> {
       children: [
         CachedNetworkImage(
           imageUrl: "$baseUrl${movie.backdropPath}",
+          fit: BoxFit.fill,
           height: MediaQuery.of(context).size.height * double.infinity,
           width: MediaQuery.of(context).size.width * double.infinity,
           placeholder: (_, __) => const Center(child: LoadingWidget()),
@@ -130,8 +127,8 @@ class _HomeState extends State<Home> {
           color: const Color.fromARGB(255, 40, 42, 40),
           child: Row(
             children: [
-              const SizedBox(
-                width: 130,
+               SizedBox(
+                  width: MediaQuery.of(context).size.width * .34,
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -160,14 +157,14 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        DateTime.parse(movie.releaseDate ?? "").year.toString(),
+                        "${DateTime.tryParse(movie.releaseDate!)?.year??"".toString()}",
                         style:
                             const TextStyle(color: Colors.white, fontSize: 13),
                       ),
                       const SizedBox(
                         width: 4,
                       ),
-                      Text(movie.adult! ? "PG-3" : "R",
+                      Text(movie.adult! ? "R" : "PG-3",
                           style: const TextStyle(
                               color: Colors.white54, fontSize: 11)),
                     ],
@@ -181,7 +178,7 @@ class _HomeState extends State<Home> {
           left: 18,
           child: Stack(children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(5),
               child: InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, DetailsScreen.routeName, arguments: movie.id.toString());

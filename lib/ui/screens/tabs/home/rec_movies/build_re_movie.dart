@@ -2,7 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/data/model/recommended_movies_responses.dart';
 import 'package:movieapp/ui/screens/details_screen/datails_screen.dart';
-import 'package:movieapp/ui/widgets/loadeing_widget.dart';
+import '../../../../../widgets/loadeing_widget.dart';
+
 class BuildReMovie extends StatelessWidget {
   ResultsRec resultsRe;
   BuildReMovie({super.key, required this.resultsRe});
@@ -42,7 +43,7 @@ class BuildReMovie extends StatelessWidget {
             borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6),bottomRight: Radius.circular(6)),
               child: Container(
                 padding: const EdgeInsets.all(4),
-                width: 101,height: 53.5,color: const Color.fromARGB(255, 52, 53, 52),
+                width: MediaQuery.of(context).size.width * .28,height: MediaQuery.of(context).size.height * .067,color: const Color.fromARGB(255, 52, 53, 52),
               child: Column(
                 children: [
                   Row(
@@ -56,12 +57,12 @@ class BuildReMovie extends StatelessWidget {
                   SizedBox(width: 200,child: Text(resultsRe.title??"",
                     style: const TextStyle(fontWeight: FontWeight.w400,color: Colors.white,fontSize: 11),
                     overflow: TextOverflow.ellipsis, maxLines: 1,softWrap: false)),
-                  const SizedBox(height: 2,),
+                  const SizedBox(height: 3,),
                   Row(
                     children: [
-                      Text(DateTime.parse(resultsRe.releaseDate??"").year.toString(), style: const TextStyle(fontSize: 10,color: Colors.white, fontWeight: FontWeight.w300),),
+                      Text("${DateTime.tryParse(resultsRe.releaseDate!)?.year??"".toString()}", style: const TextStyle(fontSize: 10,color: Colors.white, fontWeight: FontWeight.w300),),
                       const SizedBox(width: 4,),
-                      Text(resultsRe.adult! ? "PG-3" : "R", style: const TextStyle(fontSize: 10,color: Colors.white54, fontWeight: FontWeight.w300),),
+                      Text(resultsRe.adult! ? "R" : "PG-3", style: const TextStyle(fontSize: 10,color: Colors.white54, fontWeight: FontWeight.w300),),
                     ],
                   )
                 ],

@@ -2,21 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/data/model/similar_movies_responses.dart';
 import 'package:movieapp/ui/screens/details_screen/datails_screen.dart';
-import 'package:movieapp/ui/widgets/loadeing_widget.dart';
+import '../../../../widgets/loadeing_widget.dart';
+
 class BuildSimMovie extends StatelessWidget {
-  Results simResults;
+  ResultsSim simResults;
   BuildSimMovie({super.key, required this.simResults});
   String baseUrl = "https://image.tmdb.org/t/p/w500";
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, DetailsScreen.routeName, arguments: simResults.id.toString());
       },
       child: Column(
         children: [
-          //const SizedBox(height: 35,),
           Row(
             children: [
               Container(
@@ -43,7 +44,7 @@ class BuildSimMovie extends StatelessWidget {
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(6),bottomRight: Radius.circular(6)),
               child: Container(
                 padding: const EdgeInsets.all(4),
-                width: 94,height: 53,color: const Color.fromARGB(255, 52, 53, 52),
+                width: MediaQuery.of(context).size.width * .26,height: MediaQuery.of(context).size.height * .068,color: const Color.fromARGB(255, 52, 53, 52),
                 child: Column(
                   children: [
                     Row(
@@ -60,7 +61,7 @@ class BuildSimMovie extends StatelessWidget {
                     const SizedBox(height: 4,),
                     Row(
                       children: [
-                        Text(DateTime.parse(simResults.releaseDate??"").year.toString(), style: const TextStyle(fontSize: 10,color: Colors.white, fontWeight: FontWeight.w300),),
+                        Text("${DateTime.tryParse(simResults.releaseDate!)?.year??"".toString()}", style: const TextStyle(fontSize: 10,color: Colors.white, fontWeight: FontWeight.w300),),
                         const SizedBox(width: 4,),
                         Text(simResults.originalLanguage??"", style: const TextStyle(fontSize: 10,color: Colors.white54, fontWeight: FontWeight.w300),),
                       ],

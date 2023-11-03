@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/data/model/upcoming_movies_responses.dart';
-
-import '../../../../widgets/loadeing_widget.dart';
+import '../../../../../widgets/loadeing_widget.dart';
 import '../../../details_screen/datails_screen.dart';
 
 class BuildUpMovie extends StatelessWidget {

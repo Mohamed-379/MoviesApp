@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/data/model/details_movie_responses.dart';
 import 'package:movieapp/ui/screens/details_screen/similar_movies/similar_movie_list.dart';
 import '../../../data/repos/movies_repo/data_sources/online_data_sources.dart';
-import '../../widgets/error_widget.dart';
-import '../../widgets/loadeing_widget.dart';
+import '../../../widgets/error_widget.dart';
+import '../../../widgets/loadeing_widget.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const String routeName = "DetailsScreen";
@@ -50,7 +50,7 @@ class DetailsScreen extends StatelessWidget {
               width: double.infinity,
               child: CachedNetworkImage(
                 imageUrl: "$baseUrl${detailsMovieResponses.backdropPath}",
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 placeholder: (context, url) => const Center(child: LoadingWidget()),
                 errorWidget: (context, url, error) => const Icon(
                   Icons.error,
@@ -64,7 +64,7 @@ class DetailsScreen extends StatelessWidget {
             child: Container(
               width: double.infinity,
               height: double.infinity,
-              margin: const EdgeInsets.all(18),
+              margin: const EdgeInsets.only(right: 15,left: 15,top: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -81,7 +81,7 @@ class DetailsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        DateTime.parse(detailsMovieResponses.releaseDate ?? "").year.toString(),
+                        "${DateTime.tryParse(detailsMovieResponses.releaseDate!)?.year??"".toString()}",
                         style: const TextStyle(
                             color: Colors.white54,
                             fontSize: 13,
@@ -107,11 +107,12 @@ class DetailsScreen extends StatelessWidget {
                       Expanded(
                           flex: 2,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(18),
+                            borderRadius: BorderRadius.circular(15),
                             child: CachedNetworkImage(
                               imageUrl:
                                   "$baseUrl${detailsMovieResponses.posterPath}",
-                              height: MediaQuery.of(context).size.height * .25,
+                              height: MediaQuery.of(context).size.height * .26,
+                              fit: BoxFit.fill,
                               placeholder: (context, url) =>
                                   const LoadingWidget(),
                               errorWidget: (context, url, error) => const Center(
@@ -126,53 +127,53 @@ class DetailsScreen extends StatelessWidget {
                       ),
                       Expanded(
                           flex: 3,
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              GridView.builder(
-                                  shrinkWrap: true,
-                                  controller: ScrollController(keepScrollOffset: false),
-                                  itemCount: detailsMovieResponses.genres!.length,
-                                  itemBuilder: (context, index) => Container(
-                                        margin: const EdgeInsets.all(6),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                                width: 2, color: Colors.grey)),
-                                        child: Center(child:
-                                        Text(detailsMovieResponses.genres![index].toString(),
-                                          style: const TextStyle(
-                                              color: Colors.white54,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 10),
-                                        )),
-                                      ),
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    childAspectRatio: 3.7 / 2.5,
-                                  )),
-                              const SizedBox(height: 6,),
-                              Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8),
-                                  height: 70,
-                                  width: double.infinity,
-                                  child: SingleChildScrollView(
-                                      child: Text(
-                                    detailsMovieResponses.overview ?? "",
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w300),
-                                  ))),
-                              SizedBox(height: MediaQuery.of(context).size.height * .01,),
-                              Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Row(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                GridView.builder(
+                                    shrinkWrap: true,
+                                    controller: ScrollController(keepScrollOffset: false),
+                                    itemCount: detailsMovieResponses.genres!.length,
+                                    itemBuilder: (context, index) => Container(
+                                      height: double.infinity,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              border: Border.all(
+                                                  width: 2, color: Colors.grey)),
+                                          child: Center(child: Text(detailsMovieResponses.genres![index].name??"",
+                                            style: const TextStyle(
+                                                color: Colors.white54,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 10),
+                                          )),
+                                        ),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 5,
+                                      childAspectRatio: 2,
+                                      crossAxisSpacing: 5,
+                                    )),
+                                const SizedBox(height: 6,),
+                                SizedBox(
+                                    height: 95,
+                                    width: double.infinity,
+                                    child: SingleChildScrollView(
+                                        child: Text(
+                                      detailsMovieResponses.overview ?? "",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300),
+                                    ))),
+                                SizedBox(height: MediaQuery.of(context).size.height * .01,),
+                                Row(
                                   children: [
                                     const Icon(Icons.star,color: Color.fromARGB(
                                         255, 253, 176, 33),),
@@ -181,8 +182,8 @@ class DetailsScreen extends StatelessWidget {
                                       style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),),
                                   ],
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
                           ))
                     ],
                   ),
@@ -199,7 +200,7 @@ class DetailsScreen extends StatelessWidget {
                 children: [
                   const Expanded(flex: 1, child: Padding(
                     padding: EdgeInsets.only(top: 10, left: 12),
-                    child: Text("More Like This", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w300),),
+                    child: Text("More Like This", style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w300),),
                   ),),
                   Expanded(flex:5,child: SimilarMovieList(id: detailsMovieResponses.id.toString(),)),
                 ],

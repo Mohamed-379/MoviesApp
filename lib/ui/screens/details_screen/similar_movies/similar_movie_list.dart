@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/data/model/similar_movies_responses.dart';
 import 'package:movieapp/data/repos/movies_repo/data_sources/online_data_sources.dart';
-import 'package:movieapp/ui/widgets/error_widget.dart';
-import 'package:movieapp/ui/widgets/loadeing_widget.dart';
-
+import '../../../../widgets/error_widget.dart';
+import '../../../../widgets/loadeing_widget.dart';
 import 'build_similar_movies.dart';
 
 class SimilarMovieList extends StatelessWidget {
@@ -34,7 +33,7 @@ class SimilarMovieList extends StatelessWidget {
     );
   }
 
-  Widget buildMoviesList(List<Results> simMovie) {
+  Widget buildMoviesList(List<ResultsSim> simMovie) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: simMovie.length,

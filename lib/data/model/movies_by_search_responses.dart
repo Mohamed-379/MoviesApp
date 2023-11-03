@@ -1,23 +1,23 @@
-class SimilarMoviesResponses {
-  SimilarMoviesResponses({
+class MoviesBySearchResponses {
+  MoviesBySearchResponses({
       this.page, 
       this.results, 
       this.totalPages, 
       this.totalResults,});
 
-  SimilarMoviesResponses.fromJson(dynamic json) {
+  MoviesBySearchResponses.fromJson(dynamic json) {
     page = json['page'];
     if (json['results'] != null) {
       results = [];
       json['results'].forEach((v) {
-        results?.add(ResultsSim.fromJson(v));
+        results?.add(Results.fromJson(v));
       });
     }
     totalPages = json['total_pages'];
     totalResults = json['total_results'];
   }
   int? page;
-  List<ResultsSim>? results;
+  List<Results>? results;
   int? totalPages;
   int? totalResults;
 
@@ -34,8 +34,8 @@ class SimilarMoviesResponses {
 
 }
 
-class ResultsSim {
-  ResultsSim({
+class Results {
+  Results({
       this.adult, 
       this.backdropPath, 
       this.genreIds, 
@@ -51,7 +51,7 @@ class ResultsSim {
       this.voteAverage, 
       this.voteCount,});
 
-  ResultsSim.fromJson(dynamic json) {
+  Results.fromJson(dynamic json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'] != null ? json['genre_ids'].cast<int>() : [];
@@ -100,4 +100,5 @@ class ResultsSim {
     map['vote_count'] = voteCount;
     return map;
   }
+
 }
